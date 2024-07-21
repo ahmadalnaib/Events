@@ -1,17 +1,16 @@
 <script setup>
-import { ref,onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import EventService from '@/services/EventService'
-defineProps({
-  id:{
-    type: String,
-    required: true,
-  },
+const props = defineProps({
+  id: {
+    required: true
+  }
 })
 
-const event=ref(null)
+const event = ref(null)
 
 onMounted(async () => {
-  const response = await EventService.getEvent(id)
+  const response = await EventService.getEvent(props.id)
   event.value = response.data
 })
 </script>
@@ -22,5 +21,4 @@ onMounted(async () => {
     <p>{{ event.time }} on {{ event.date }} @{{ event.location }}</p>
     <p>{{ event.description }}</p>
   </div>
-  
 </template>
