@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import EventService from '@/services/EventService'
+import router from '@/router';
 const props = defineProps({
   id: {
     required: true
@@ -9,9 +10,27 @@ const props = defineProps({
 
 const event = ref(null)
 
-onMounted(async () => {
-  const response = await EventService.getEvent(props.id)
-  event.value = response.data
+// onMounted(async () => {
+//   const response = await EventService.getEvent(props.id)
+//   event.value = response.data
+// })
+
+onMounted(()=>{
+  EventService.getEvent(props.id)
+    .then(response => {
+      event.value = response.data
+    })
+    .catch(error => {
+      if (error.response && error.response.status == 404) {
+        router.push({
+          name: '404Resource',
+          params: { resource: 'event' }
+        })
+      } else {
+        router.push({ name: 'NetworkError' })
+      }
+    })
+
 })
 </script>
 
