@@ -4,3 +4,11 @@
   </div>
 </template>
 
+<style scoped>
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
+

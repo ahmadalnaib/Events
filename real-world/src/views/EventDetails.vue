@@ -16,9 +16,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="event">
+  <div v-if="event" class="flex">
     <h1>{{ event.title }}</h1>
     <p>{{ event.time }} on {{ event.date }} @{{ event.location }}</p>
     <p>{{ event.description }}</p>
   </div>
 </template>
+
+<style scoped>
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
