@@ -20,11 +20,14 @@ const hasNextPage=computed(() => {
 onMounted(async () => {
   events.value = null
   watchEffect(async () => {
-    const response = await EventService.getEvents(2,page.value)
-    events.value = response.data
-    totalEvents.value = response.headers['x-total-count']
-  }).catch(error => {
-    router.push({name:'NetworkError'})
+    EventService.getEvents(2, page.value)
+      .then((response) => {
+        events.value = response.data;
+        totalEvents.value = response.headers["x-total-count"];
+      })
+      .catch(() => {
+        router.push({ name: 'NetworkError' }) // <<-----
+      });
   })
 
 })
